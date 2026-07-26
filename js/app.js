@@ -160,3 +160,120 @@ function generateTOC(){
     });
 
 }
+const searchPages = [
+    { page: "guide", title: "คำแนะนำการเล่น" },
+    { page: "rules", title: "กฎทั่วไป" },
+    { page: "report", title: "การแจ้งปัญหา" },
+    { page: "event", title: "กฎกิจกรรม" },
+
+    { page: "police1", title: "กฎตำรวจ 1" },
+    { page: "police2", title: "กฎตำรวจ 2" },
+    { page: "police3", title: "กฎตำรวจ 3" },
+    { page: "police4", title: "กฎตำรวจ 4" },
+    { page: "police5", title: "กฎตำรวจ 5" },
+
+    { page: "council1", title: "กฎสภา 1" },
+    { page: "council2", title: "กฎสภา 2" },
+    { page: "council3", title: "กฎสภา 3" }
+];
+// =====================
+// Search Content
+// =====================
+
+// =====================
+// Live Search
+// =====================
+
+const searchInput = document.getElementById("search");
+const resultBox = document.getElementById("search-results");
+
+searchInput.addEventListener("input", async () => {
+
+    const keyword = searchInput.value.trim().toLowerCase();
+
+    resultBox.innerHTML = "";
+
+    if(keyword.length < 2){
+
+        resultBox.style.display = "none";
+        return;
+
+    }
+
+    for(const item of searchPages){
+
+        const res = await fetch(`pages/${item.page}.html`);
+        const html = await res.text();
+
+        const text = html.replace(/<[^>]*>/g," ");
+
+        if(text.toLowerCase().includes(keyword)){
+
+            const div = document.createElement("div");
+
+            div.className = "search-result";
+
+            div.innerHTML = `
+                <b>${item.title}</b><br>
+                <small>${keyword}</small>
+            `;
+
+            div.onclick = ()=>{
+
+                loadPage(item.page);
+
+                resultBox.style.display="none";
+
+                searchInput.value="";
+
+                setTimeout(()=>{
+
+                    const elements=document.querySelectorAll(".content li,.content p,.content h1,.content h2,.content h3");
+
+                    elements.forEach(el=>{
+
+                        if(el.textContent.toLowerCase().includes(keyword)){
+
+                            el.scrollIntoView({
+                                behavior:"smooth",
+                                block:"center"
+                            });
+
+                            el.style.background="#ffe66d";
+                            el.style.color="#000";
+
+                            setTimeout(()=>{
+
+                                el.style.background="";
+                                el.style.color="";
+
+                            },3000);
+
+                        }
+
+                    });
+
+                },300);
+
+            };
+
+            resultBox.appendChild(div);
+
+        }
+
+    }
+
+    resultBox.style.display =
+        resultBox.children.length ? "block" : "none";
+
+});
+
+document.addEventListener("click",(e)=>{
+
+    if(!e.target.closest(".header-center")){
+
+        resultBox.style.display="none";
+
+    }
+
+});
