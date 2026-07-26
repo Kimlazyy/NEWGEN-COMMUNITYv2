@@ -69,11 +69,13 @@ body{
 }
 
 .logo{
+    display: flex;
+    justify-content: center;
+    align-items: center;
 
-    padding:30px;
+    padding: 18px 15px;
 
-    border-bottom:1px solid var(--border);
-
+    border-bottom: 1px solid var(--border);
 }
 
 .logo h2{
@@ -467,6 +469,7 @@ hr{
     margin-bottom:12px;
 
 }
+
 .discord-btn{
 
     text-decoration:none;
@@ -509,8 +512,11 @@ hr{
 
 }
 .logo img{
-    width:160px;
-    height:auto;
+    width: 23s0px;
+    max-width: 100%;
+    height: auto;
+
+    transition: .25s;
 }
 .header-center{
     position: relative;
