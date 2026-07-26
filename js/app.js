@@ -73,7 +73,7 @@ search.addEventListener("input", () => {
 
         const text = item.textContent.toLowerCase();
 
-        item.style.display = text.includes(keyword) ? "" : "none";
+        ;item.style.display = "";
 
     });
 
@@ -91,7 +91,7 @@ search.addEventListener("input", () => {
 
         });
 
-        dropdown.style.display = hasVisible ? "" : "none";
+        dropdown.style.display = "";
 
     });
 
