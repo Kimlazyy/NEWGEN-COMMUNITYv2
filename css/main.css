@@ -610,3 +610,26 @@ hr{
     color:#94a3b8;
 
 }
+.content h2{
+    margin-top:40px;
+    margin-bottom:20px;
+    padding:12px 18px;
+
+    background:#1e293b;
+
+    border-left:5px solid var(--primary);
+
+    border-radius:8px;
+
+    color:#fff;
+}
+.content ul{
+    margin:20px 0;
+    padding-left:25px;
+}
+
+.content li{
+    margin-bottom:12px;
+    line-height:1.8;
+    color:var(--text2);
+}
